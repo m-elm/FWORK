@@ -858,3 +858,10 @@ Don't judge on day 1 with 50 visitors
 
 
 LLM Prompt:
+
+
+
+
+# Inspirations
+
+https://www.reddit.com/r/webdesign/comments/1i3go8q/25_best_ui_design_inspiration_websites_for_2025/

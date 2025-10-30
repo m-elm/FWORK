@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Discovery Focus - AI Startup Framework</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Customer Discovery Specific Styles */
+        .customer-focus-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .interview-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .interview-content {
+            padding: 2rem;
+        }
+
+        .interview-question {
+            background: #f8fafc;
+            border-left: 4px solid #6366f1;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            color: #6366f1;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .response-area {
+            margin-bottom: 1rem;
+        }
+
+        .response-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .response-textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .ai-analysis {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .analysis-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .insight-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .insight-tag {
+            background: #6366f1;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .insight-tag.pain-point {
+            background: #ef4444;
+        }
+
+        .insight-tag.opportunity {
+            background: #10b981;
+        }
+
+        .insight-tag.concern {
+            background: #f59e0b;
+        }
+
+        .contextual-ai-panel {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .ai-panel {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .ai-panel-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .ai-panel-content {
+            padding: 1.5rem;
+        }
+
+        .real-time-insights {
+            margin-bottom: 2rem;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid #6366f1;
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-icon {
+            font-size: 1.2rem;
+            margin-top: 0.1rem;
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .pattern-analysis {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .pattern-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pattern-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pattern-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .pattern-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pattern-frequency {
+            background: #6366f1;
+            color: white;
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .ai-recommendations {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #fef3cd;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recommendation-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #92400e;
+        }
+
+        .recommendation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-tracker {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#6366f1 0deg, #6366f1 162deg, #e5e7eb 162deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .progress-text {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .progress-label {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Context Bar -->
+    <div class="ai-context-bar">
+        <div class="ai-indicator">
+            <i class="fas fa-brain"></i>
+            <span>Deep Customer Discovery Mode - Real-time Analysis Active</span>
+        </div>
+        <div class="progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+            </div>
+            <span>45% Complete</span>
+        </div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="progress-tracker">
+        <div class="progress-circle">
+            <div class="progress-text">45%</div>
+        </div>
+        <div class="progress-label">Customer Discovery</div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+        <div class="customer-focus-layout">
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="interview-header">
+                    <h1>🎯 Customer Interview #4</h1>
+                    <p>Sarah M. - Working Mom, 32, Two kids under 5</p>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                        <i class="fas fa-clock"></i> 15 minutes elapsed | AI Analysis: Active
+                    </div>
+                </div>
+
+                <div class="interview-content">
+                    <!-- Question 1 -->
+                    <div class="interview-question">
+                        <div class="question-number">QUESTION 1 OF 12</div>
+                        <div class="question-text">What's your biggest challenge with food delivery services currently?</div>
+                        <div class="response-area">
+                            <textarea class="response-textarea" placeholder="Record Sarah's response here...">The apps are way too complicated when I'm trying to juggle kids and work. I just want something simple that gets food to my door without a million steps. Also, I never know if the food is actually healthy for my kids.</textarea>
+                        </div>
+                        <div class="ai-analysis">
+                            <div class="analysis-header">
+                                <i class="fas fa-robot" style="color: #6366f1;"></i>
+                                <span>AI Analysis</span>
+                            </div>
+                            <p><strong>Key Insights:</strong> Sarah confirms the complexity pain point (matches 73% of previous interviews). New insight: Health concerns for children - potential differentiation opportunity.</p>
+                            <div class="insight-tags">
+                                <span class="insight-tag pain-point">Complexity</span>
+                                <span class="insight-tag opportunity">Health Focus</span>
+                                <span class="insight-tag">Simplicity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="interview-question">
+                        <div class="question-number">QUESTION 2 OF 12</div>
+                        <div class="question-text">How much would you be willing to pay monthly for a simplified, kid-friendly food delivery service?</div>
+                        <div class="response-area">
+                            <textarea class="response-textarea" placeholder="Record Sarah's response here...">Maybe $15 per month? I'm already spending $25 on the current apps, but if it's actually simpler and better for my kids, I'd consider it. Definitely not more than $20 though.</textarea>
+                        </div>
+                        <div class="ai-analysis">
+                            <div class="analysis-header">
+                                <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                                <span>Critical Update</span>
+                            </div>
+                            <p><strong>Pricing Conflict Detected:</strong> Sarah's price point ($15-20) conflicts with your current model ($25). This is the 4th interview confirming lower price sensitivity.</p>
+                            <div class="insight-tags">
+                                <span class="insight-tag concern">Price Mismatch</span>
+                                <span class="insight-tag">Value Perception</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="interview-question">
+                        <div class="question-number">QUESTION 3 OF 12</div>
+                        <div class="question-text">What features would be most valuable to you in a food delivery app designed for parents?</div>
+                        <div class="response-area">
+                            <textarea class="response-textarea" placeholder="Record Sarah's response here...">One-click ordering for my usual meals, nutrition info that's actually readable, and maybe some kind of meal planning that considers what my kids actually eat. I don't need social features or complex personalization.</textarea>
+                        </div>
+                        <div class="ai-analysis">
+                            <div class="analysis-header">
+                                <i class="fas fa-lightbulb" style="color: #10b981;"></i>
+                                <span>Feature Validation</span>
+                            </div>
+                            <p><strong>Feature Priority Update:</strong> One-click ordering ranks highest (mentioned in 5/5 interviews). Social features consistently rejected.</p>
+                            <div class="insight-tags">
+                                <span class="insight-tag opportunity">One-Click Ordering</span>
+                                <span class="insight-tag">Nutrition Info</span>
+                                <span class="insight-tag concern">No Social Features</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contextual AI Panel -->
+            <div class="contextual-ai-panel">
+                <div class="ai-panel">
+                    <div class="ai-panel-header">
+                        <h3>🤖 AI Co-Pilot</h3>
+                        <p>Real-time Interview Analysis</p>
+                    </div>
+                    <div class="ai-panel-content">
+                        <div class="real-time-insights">
+                            <div class="insight-item">
+                                <i class="fas fa-exclamation-triangle insight-icon" style="color: #f59e0b;"></i>
+                                <div class="insight-content">
+                                    <div class="insight-title">Pricing Model Alert</div>
+                                    <div class="insight-description">4/4 customers prefer $15-20 range. Consider revising your $25 model.</div>
+                                </div>
+                            </div>
+
+                            <div class="insight-item">
+                                <i class="fas fa-chart-line insight-icon" style="color: #10b981;"></i>
+                                <div class="insight-content">
+                                    <div class="insight-title">Strong Pattern</div>
+                                    <div class="insight-description">Simplicity mentioned in 100% of interviews. This is your core value prop.</div>
+                                </div>
+                            </div>
+
+                            <div class="insight-item">
+                                <i class="fas fa-lightbulb insight-icon" style="color: #6366f1;"></i>
+                                <div class="insight-content">
+                                    <div class="insight-title">New Opportunity</div>
+                                    <div class="insight-description">Health/nutrition focus for kids - unexplored differentiation angle.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pattern-analysis">
+                            <div class="pattern-title">
+                                <i class="fas fa-search"></i>
+                                Pattern Analysis
+                            </div>
+                            <ul class="pattern-list">
+                                <li class="pattern-item">
+                                    <span class="pattern-frequency">100%</span>
+                                    Want simplicity over features
+                                </li>
+                                <li class="pattern-item">
+                                    <span class="pattern-frequency">80%</span>
+                                    Prefer $15-20 price point
+                                </li>
+                                <li class="pattern-item">
+                                    <span class="pattern-frequency">60%</span>
+                                    Care about kid-friendly options
+                                </li>
+                                <li class="pattern-item">
+                                    <span class="pattern-frequency">40%</span>
+                                    Reject social features
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ai-recommendations">
+                            <div class="recommendation-title">
+                                <i class="fas fa-magic"></i>
+                                AI Recommendations
+                            </div>
+                            <ul class="recommendation-list">
+                                <li class="recommendation-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Pivot to $15/month freemium model
+                                </li>
+                                <li class="recommendation-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Focus MVP on one-click ordering
+                                </li>
+                                <li class="recommendation-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Add nutrition scoring feature
+                                </li>
+                                <li class="recommendation-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Remove social features from roadmap
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="stage-nav">
+        <button class="nav-btn" onclick="window.location.href='index.html'">💬 Start</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">🎨 Canvas</button>
+        <button class="nav-btn active">👥 Customer</button>
+        <button class="nav-btn">🎯 Command</button>
+    </div>
+
+    <script>
+        // Simulate real-time updates
+        setInterval(() => {
+            const progressCircle = document.querySelector('.progress-circle');
+            const progressText = document.querySelector('.progress-text');
+            const currentProgress = parseInt(progressText.textContent);
+            
+            if (currentProgress < 100) {
+                const newProgress = Math.min(100, currentProgress + 1);
+                progressText.textContent = newProgress + '%';
+                progressCircle.style.background = `conic-gradient(#6366f1 0deg, #6366f1 ${newProgress * 3.6}deg, #e5e7eb ${newProgress * 3.6}deg)`;
+            }
+        }, 30000); // Update every 30 seconds
+
+        // Auto-resize textareas
+        document.querySelectorAll('.response-textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
+    </script>
+</body>
+</html> 

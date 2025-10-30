@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Startup Framework - Notion Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #37352f;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Main Layout */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #f7f6f3;
+            border-right: 1px solid #e9e9e7;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .sidebar-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9e9e7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .workspace-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .workspace-name {
+            font-weight: 600;
+            color: #37352f;
+            flex: 1;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            padding: 0 16px 8px;
+            color: #9b9a97;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .playbook-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 16px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            border-radius: 0;
+            margin: 0 8px;
+            border-radius: 4px;
+        }
+
+        .playbook-item:hover {
+            background: #ededec;
+        }
+
+        .playbook-item.active {
+            background: #e9e9e7;
+        }
+
+        .playbook-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .playbook-name {
+            flex: 1;
+            font-size: 14px;
+            color: #37352f;
+        }
+
+        .playbook-progress {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #d9d9d6;
+            margin-left: 8px;
+        }
+
+        .playbook-progress.complete {
+            background: #0f7b0f;
+        }
+
+        .playbook-progress.in-progress {
+            background: #d9730d;
+        }
+
+        .playbook-progress.needs-attention {
+            background: #e03e3e;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+        .content-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e9e9e7;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .content-icon {
+            font-size: 20px;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #37352f;
+            flex: 1;
+        }
+
+        .content-progress {
+            font-size: 12px;
+            color: #9b9a97;
+            background: #f7f6f3;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .content-body {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .content-section {
+            margin-bottom: 32px;
+        }
+
+        .section-heading {
+            font-size: 16px;
+            font-weight: 600;
+            color: #37352f;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #37352f;
+            margin-bottom: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e9e9e7;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #37352f;
+            background: #ffffff;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 1px #6366f1;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .insight-card {
+            background: #f7f6f3;
+            border: 1px solid #e9e9e7;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .insight-icon {
+            color: #6366f1;
+            font-size: 14px;
+        }
+
+        .insight-title {
+            font-weight: 500;
+            color: #37352f;
+            font-size: 14px;
+        }
+
+        .insight-content {
+            color: #5a5a5a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: #ffffff;
+            border: 1px solid #e9e9e7;
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .metric-label {
+            color: #9b9a97;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #37352f;
+        }
+
+        .metric-trend {
+            font-size: 12px;
+            color: #0f7b0f;
+            margin-left: 8px;
+        }
+
+        .metric-trend.negative {
+            color: #e03e3e;
+        }
+
+        /* Right AI Panel */
+        .ai-panel {
+            width: 320px;
+            background: #ffffff;
+            border-left: 1px solid #e9e9e7;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e9e9e7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-indicator {
+            width: 8px;
+            height: 8px;
+            background: #0f7b0f;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .ai-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #37352f;
+            flex: 1;
+        }
+
+        .ai-status {
+            font-size: 12px;
+            color: #9b9a97;
+        }
+
+        .ai-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ai-messages {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+        }
+
+        .ai-message {
+            margin-bottom: 16px;
+        }
+
+        .ai-message.user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .ai-message.assistant {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-bubble.user {
+            background: #6366f1;
+            color: white;
+        }
+
+        .message-bubble.assistant {
+            background: #f7f6f3;
+            color: #37352f;
+            border: 1px solid #e9e9e7;
+        }
+
+        .ai-suggestions {
+            padding: 0 20px 16px;
+            border-top: 1px solid #e9e9e7;
+        }
+
+        .suggestions-title {
+            font-size: 12px;
+            color: #9b9a97;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .suggestion-item {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            background: #f7f6f3;
+            border: 1px solid #e9e9e7;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            color: #37352f;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .suggestion-item:hover {
+            background: #ededec;
+        }
+
+        .ai-input-area {
+            padding: 16px 20px;
+            border-top: 1px solid #e9e9e7;
+        }
+
+        .ai-input-container {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e9e9e7;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #37352f;
+            background: #ffffff;
+            resize: none;
+            min-height: 36px;
+            max-height: 100px;
+            transition: border-color 0.15s ease;
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .ai-send-btn {
+            padding: 8px 12px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.15s ease;
+        }
+
+        .ai-send-btn:hover {
+            background: #5856eb;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            background: #ffffff;
+            border: 1px solid #e9e9e7;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #37352f;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            background: #f7f6f3;
+            border-color: #d9d9d6;
+        }
+
+        .action-btn.primary {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        .action-btn.primary:hover {
+            background: #5856eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #9b9a97;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #37352f;
+            margin-bottom: 8px;
+        }
+
+        .empty-state-description {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .ai-panel {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .ai-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="workspace-icon">🚀</div>
+                <div class="workspace-name">Startup Framework</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Core Playbooks -->
+                <div class="sidebar-section">
+                    <div class="section-title">Core Playbooks</div>
+                    
+                    <div class="playbook-item active" data-playbook="vision">
+                        <div class="playbook-icon">💡</div>
+                        <div class="playbook-name">Vision & Opportunity</div>
+                        <div class="playbook-progress complete"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="customer">
+                        <div class="playbook-icon">🎯</div>
+                        <div class="playbook-name">Customer Discovery</div>
+                        <div class="playbook-progress in-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="business">
+                        <div class="playbook-icon">💰</div>
+                        <div class="playbook-name">Business Model</div>
+                        <div class="playbook-progress needs-attention"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="product">
+                        <div class="playbook-icon">🛠️</div>
+                        <div class="playbook-name">Product Strategy</div>
+                        <div class="playbook-progress in-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="technical">
+                        <div class="playbook-icon">⚙️</div>
+                        <div class="playbook-name">Technical Development</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                </div>
+                
+                <!-- Supporting Playbooks -->
+                <div class="sidebar-section">
+                    <div class="section-title">Supporting Playbooks</div>
+                    
+                    <div class="playbook-item" data-playbook="team">
+                        <div class="playbook-icon">👥</div>
+                        <div class="playbook-name">Team & Culture</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="financial">
+                        <div class="playbook-icon">📊</div>
+                        <div class="playbook-name">Financial Planning</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="launch">
+                        <div class="playbook-icon">🚀</div>
+                        <div class="playbook-name">Launch & Growth</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="analytics">
+                        <div class="playbook-icon">📈</div>
+                        <div class="playbook-name">Data & Analytics</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                </div>
+                
+                <!-- Additional Playbooks -->
+                <div class="sidebar-section">
+                    <div class="section-title">Additional</div>
+                    
+                    <div class="playbook-item" data-playbook="brand">
+                        <div class="playbook-icon">🎨</div>
+                        <div class="playbook-name">Brand & Communication</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="legal">
+                        <div class="playbook-icon">⚖️</div>
+                        <div class="playbook-name">Legal & Compliance</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                    
+                    <div class="playbook-item" data-playbook="partnerships">
+                        <div class="playbook-icon">🤝</div>
+                        <div class="playbook-name">Partnerships</div>
+                        <div class="playbook-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="content-icon">💡</div>
+                <div class="content-title">Vision & Opportunity</div>
+                <div class="content-progress">100% Complete</div>
+            </div>
+            
+            <div class="content-body" id="content-body">
+                <!-- Vision & Opportunity Content -->
+                <div class="playbook-content" id="vision-content">
+                    <div class="content-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-lightbulb"></i>
+                            Vision Statement
+                        </h2>
+                        <div class="form-group">
+                            <label class="form-label">One-sentence Vision Statement</label>
+                            <input type="text" class="form-input" id="vision-statement" value="AI-powered food delivery platform for busy parents seeking healthy, convenient meal solutions">
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-bullseye"></i>
+                            Problem & Mission
+                        </h2>
+                        <div class="form-group">
+                            <label class="form-label">Problem Description</label>
+                            <textarea class="form-input form-textarea" id="problem-description">Busy parents struggle with complex food delivery apps while juggling work and childcare. Existing solutions are overwhelming, don't prioritize healthy options for children, and lack the simplicity needed for time-stressed parents.</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-chart-line"></i>
+                            Market Analysis
+                        </h2>
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Total Addressable Market</div>
+                                <div class="metric-value">$12.5B <span class="metric-trend">+23%</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Market Timing Score</div>
+                                <div class="metric-value">87% <span class="metric-trend">+5%</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Competition Level</div>
+                                <div class="metric-value">High <span class="metric-trend negative">↗</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Opportunity Score</div>
+                                <div class="metric-value">89% <span class="metric-trend">+12%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-robot"></i>
+                            AI Insights
+                        </h2>
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <i class="fas fa-lightbulb insight-icon"></i>
+                                <div class="insight-title">Market Timing Analysis</div>
+                            </div>
+                            <div class="insight-content">
+                                Excellent timing! The food delivery market is experiencing 23% annual growth, and there's a growing demand for family-focused solutions. Parent-targeted apps have shown 67% higher retention rates.
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <i class="fas fa-exclamation-triangle insight-icon"></i>
+                                <div class="insight-title">Competitive Threat</div>
+                            </div>
+                            <div class="insight-content">
+                                Two major competitors launched similar services in Q4 2023. However, neither focuses specifically on simplicity and child nutrition - your key differentiators.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-tasks"></i>
+                            Next Actions
+                        </h2>
+                        <button class="action-btn primary">Complete Customer Discovery</button>
+                        <button class="action-btn">Validate Business Model</button>
+                        <button class="action-btn">Analyze Competition</button>
+                        <button class="action-btn">Refine Vision Statement</button>
+                    </div>
+                </div>
+                
+                <!-- Placeholder for other playbook content -->
+                <div class="playbook-content" id="customer-content" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎯</div>
+                        <div class="empty-state-title">Customer Discovery</div>
+                        <div class="empty-state-description">
+                            Validate customer needs and problem-solution fit through evidence-based learning.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="playbook-content" id="business-content" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">💰</div>
+                        <div class="empty-state-title">Business Model</div>
+                        <div class="empty-state-description">
+                            Design a sustainable model for value capture and financial viability.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right AI Panel -->
+        <div class="ai-panel">
+            <div class="ai-header">
+                <div class="ai-indicator"></div>
+                <div class="ai-title">AI Co-Pilot</div>
+                <div class="ai-status">Active</div>
+            </div>
+            
+            <div class="ai-chat">
+                <div class="ai-messages" id="ai-messages">
+                    <div class="ai-message assistant">
+                        <div class="message-bubble assistant">
+                            Hi! I'm your AI co-pilot. I've been analyzing your Vision & Opportunity playbook. Your market timing score is excellent at 87%! 
+                            
+                            I noticed you're ready to move to Customer Discovery. Should I help you prepare interview questions?
+                        </div>
+                    </div>
+                    
+                    <div class="ai-message assistant">
+                        <div class="message-bubble assistant">
+                            Based on your vision, I recommend focusing on 3 key customer segments:
+                            
+                            1. Working parents (25-40 years)
+                            2. Single parents with limited time
+                            3. Health-conscious families
+                            
+                            Which would you like to explore first?
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ai-suggestions">
+                    <div class="suggestions-title">Quick Actions</div>
+                    <button class="suggestion-item" data-suggestion="Generate customer interview questions">🎯 Generate interview questions</button>
+                    <button class="suggestion-item" data-suggestion="Analyze competitive landscape">🔍 Analyze competitors</button>
+                    <button class="suggestion-item" data-suggestion="Review pricing models">💰 Review pricing models</button>
+                    <button class="suggestion-item" data-suggestion="Validate technical feasibility">⚙️ Check technical feasibility</button>
+                </div>
+            </div>
+            
+            <div class="ai-input-area">
+                <div class="ai-input-container">
+                    <textarea class="ai-input" id="ai-input" placeholder="Ask me anything about your startup..."></textarea>
+                    <button class="ai-send-btn" id="ai-send-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple interactivity for the Notion-style interface
+        class NotionStyleFramework {
+            constructor() {
+                this.currentPlaybook = 'vision';
+                this.init();
+            }
+            
+            init() {
+                this.setupPlaybookNavigation();
+                this.setupAIChat();
+                this.setupFormInteractions();
+            }
+            
+            setupPlaybookNavigation() {
+                const playbookItems = document.querySelectorAll('.playbook-item');
+                playbookItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const playbook = item.dataset.playbook;
+                        this.switchPlaybook(playbook);
+                        
+                        // Update active state
+                        playbookItems.forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+                    });
+                });
+            }
+            
+            switchPlaybook(playbook) {
+                this.currentPlaybook = playbook;
+                
+                // Hide all content
+                document.querySelectorAll('.playbook-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // Show selected content
+                const content = document.getElementById(`${playbook}-content`);
+                if (content) {
+                    content.style.display = 'block';
+                }
+                
+                // Update header
+                const icons = {
+                    vision: { icon: '💡', title: 'Vision & Opportunity', progress: '100% Complete' },
+                    customer: { icon: '🎯', title: 'Customer Discovery', progress: '67% Complete' },
+                    business: { icon: '💰', title: 'Business Model', progress: '25% Complete' },
+                    product: { icon: '🛠️', title: 'Product Strategy', progress: '40% Complete' },
+                    technical: { icon: '⚙️', title: 'Technical Development', progress: '0% Complete' }
+                };
+                
+                const playbookInfo = icons[playbook] || { icon: '📄', title: 'Playbook', progress: '0% Complete' };
+                
+                document.querySelector('.content-icon').textContent = playbookInfo.icon;
+                document.querySelector('.content-title').textContent = playbookInfo.title;
+                document.querySelector('.content-progress').textContent = playbookInfo.progress;
+                
+                // Update AI context
+                this.updateAIContext(playbook);
+            }
+            
+            setupAIChat() {
+                const aiInput = document.getElementById('ai-input');
+                const aiSendBtn = document.getElementById('ai-send-btn');
+                
+                const sendMessage = () => {
+                    const message = aiInput.value.trim();
+                    if (!message) return;
+                    
+                    // Add user message
+                    this.addAIMessage('user', message);
+                    aiInput.value = '';
+                    
+                    // Simulate AI response
+                    setTimeout(() => {
+                        this.simulateAIResponse(message);
+                    }, 1000);
+                };
+                
+                aiSendBtn.addEventListener('click', sendMessage);
+                aiInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+                
+                // Suggestion buttons
+                document.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const suggestion = item.dataset.suggestion;
+                        this.addAIMessage('user', suggestion);
+                        setTimeout(() => {
+                            this.simulateAIResponse(suggestion);
+                        }, 1000);
+                    });
+                });
+            }
+            
+            addAIMessage(type, content) {
+                const aiMessages = document.getElementById('ai-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `ai-message ${type}`;
+                messageDiv.innerHTML = `
+                    <div class="message-bubble ${type}">
+                        ${content}
+                    </div>
+                `;
+                aiMessages.appendChild(messageDiv);
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
+            
+            simulateAIResponse(userMessage) {
+                const responses = {
+                    vision: [
+                        "Your vision is strong! I've analyzed similar startups and found that parent-focused apps have 67% higher retention rates. Consider emphasizing the 'simplicity' angle more prominently.",
+                        "Great market timing! The food delivery space is growing 23% annually, and there's a clear gap in parent-focused solutions. Your competitive advantage is well-defined."
+                    ],
+                    customer: [
+                        "Based on your vision, I recommend starting with working parents aged 25-40. They have the highest willingness to pay for convenient solutions. Should I generate interview questions?",
+                        "I've identified 3 key customer segments for your food delivery app. Working parents show the strongest pain points around complexity and time constraints."
+                    ],
+                    business: [
+                        "Your current pricing model might be too high based on market research. Similar parent-focused apps succeed with $15-20/month pricing. Should we explore different models?",
+                        "I recommend a freemium model with premium features for busy parents. The food delivery market supports subscription models well."
+                    ]
+                };
+                
+                const contextResponses = responses[this.currentPlaybook] || [
+                    "I'm analyzing your request in the context of your current playbook. Let me provide some insights...",
+                    "That's a great question! Based on your startup's focus, here are my recommendations..."
+                ];
+                
+                const response = contextResponses[Math.floor(Math.random() * contextResponses.length)];
+                this.addAIMessage('assistant', response);
+            }
+            
+            updateAIContext(playbook) {
+                const contextMessages = {
+                    vision: "I'm analyzing your vision and market opportunity. Your timing score is excellent!",
+                    customer: "Ready to help with customer discovery. I can generate interview questions and analyze feedback.",
+                    business: "Let's work on your business model. I notice some pricing concerns that need attention.",
+                    product: "I can help prioritize features based on your customer insights.",
+                    technical: "Ready to discuss technical architecture and development planning."
+                };
+                
+                const message = contextMessages[playbook] || "I'm here to help with your startup framework.";
+                setTimeout(() => {
+                    this.addAIMessage('assistant', message);
+                }, 500);
+            }
+            
+            setupFormInteractions() {
+                // Auto-save form inputs
+                document.querySelectorAll('.form-input').forEach(input => {
+                    input.addEventListener('input', () => {
+                        // Simulate auto-save
+                        console.log('Auto-saving...', input.id, input.value);
+                    });
+                });
+                
+                // Action buttons
+                document.querySelectorAll('.action-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const action = btn.textContent;
+                        this.addAIMessage('user', `Help me with: ${action}`);
+                        setTimeout(() => {
+                            this.simulateAIResponse(action);
+                        }, 1000);
+                    });
+                });
+            }
+        }
+        
+        // Initialize the framework
+        document.addEventListener('DOMContentLoaded', () => {
+            new NotionStyleFramework();
+        });
+    </script>
+</body>
+</html> 

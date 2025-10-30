@@ -1,0 +1,11 @@
+{
+  "questions_asked": 0,
+  "overall_completion": 0.0,
+  "responses_count": 0,
+  "components_generated": [],
+  "cost_metrics": {
+    "tokens_used": 0,
+    "computation_time": 13.50213,
+    "api_calls": 0
+  }
+}

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Command Center - AI Framework</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Command Center Specific Styles */
+        .command-center {
+            background: #0f172a;
+            min-height: 100vh;
+            color: white;
+            padding-top: 60px;
+        }
+
+        .command-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #334155;
+        }
+
+        .command-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-status {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+
+        .alert-level {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #dc2626;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background: #334155;
+            padding: 1rem;
+            border-bottom: 1px solid #475569;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.warning {
+            background: #f59e0b;
+        }
+
+        .status-indicator.error {
+            background: #ef4444;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .trend-up {
+            color: #10b981;
+        }
+
+        .trend-down {
+            color: #ef4444;
+        }
+
+        .mission-priorities {
+            grid-column: 1 / -1;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .priority-header {
+            background: #dc2626;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .priority-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-subtitle {
+            color: #fca5a5;
+            font-size: 0.9rem;
+        }
+
+        .priority-list {
+            padding: 2rem;
+        }
+
+        .priority-item {
+            background: #374151;
+            border: 1px solid #4b5563;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .priority-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .priority-level {
+            background: #dc2626;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .priority-level.beta {
+            background: #f59e0b;
+        }
+
+        .priority-level.gamma {
+            background: #6366f1;
+        }
+
+        .priority-content {
+            flex: 1;
+        }
+
+        .priority-task {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-details {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .priority-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #4b5563;
+            background: transparent;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #4b5563;
+        }
+
+        .action-btn.primary {
+            background: #dc2626;
+            border-color: #dc2626;
+        }
+
+        .action-btn.primary:hover {
+            background: #b91c1c;
+        }
+
+        .ai-commander {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .commander-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .commander-message {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #f1f5f9;
+        }
+
+        .threat-assessment {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .threat-item {
+            background: #374151;
+            border: 1px solid #4b5563;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .threat-level {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .threat-high {
+            color: #ef4444;
+        }
+
+        .threat-medium {
+            color: #f59e0b;
+        }
+
+        .threat-low {
+            color: #10b981;
+        }
+
+        .threat-description {
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        .mission-timeline {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1rem;
+            width: 250px;
+            z-index: 100;
+        }
+
+        .timeline-header {
+            color: #f1f5f9;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        .timeline-dot.current {
+            background: #f59e0b;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-dot.future {
+            background: #6b7280;
+        }
+
+        .timeline-text {
+            color: #d1d5db;
+        }
+
+        .timeline-text.current {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .mission-timeline {
+                position: static;
+                width: 100%;
+                margin-top: 2rem;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="command-center">
+        <!-- AI Context Bar -->
+        <div class="ai-context-bar" style="background: rgba(15, 23, 42, 0.95);">
+            <div class="ai-indicator">
+                <i class="fas fa-satellite-dish"></i>
+                <span>MISSION CONTROL ACTIVE - All Systems Operational</span>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 67%"></div>
+                </div>
+                <span>Mission 67% Complete</span>
+            </div>
+        </div>
+
+        <!-- Command Header -->
+        <div class="command-header">
+            <h1 class="command-title">🎯 STARTUP COMMAND CENTER</h1>
+            <p class="mission-status">MISSION: Food Delivery for Busy Parents</p>
+            <div class="alert-level">🚨 ALERT LEVEL: MEDIUM</div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Mission Status -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-crosshairs"></i>
+                        Mission Status
+                    </div>
+                    <div class="status-indicator warning"></div>
+                </div>
+                <div class="card-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Overall Progress</span>
+                        <span class="metric-value">67% <span class="metric-trend trend-up">↗️ +5%</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Product-Market Fit</span>
+                        <span class="metric-value">73% <span class="metric-trend trend-up">↗️ +8%</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Customer Confidence</span>
+                        <span class="metric-value">8.2/10 <span class="metric-trend trend-up">↗️ +0.3</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Market Timing</span>
+                        <span class="metric-value">89% <span class="metric-trend trend-up">↗️ +2%</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resource Status -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Resource Status
+                    </div>
+                    <div class="status-indicator error"></div>
+                </div>
+                <div class="card-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Runway</span>
+                        <span class="metric-value">8 months <span class="metric-trend trend-down">↘️ -1 month</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Burn Rate</span>
+                        <span class="metric-value">$12K/mo <span class="metric-trend trend-up">↗️ +$2K</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Team Velocity</span>
+                        <span class="metric-value">85% <span class="metric-trend trend-up">↗️ +10%</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Technical Debt</span>
+                        <span class="metric-value">Medium <span class="metric-trend trend-down">↘️ Rising</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intelligence Report -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-eye"></i>
+                        Intelligence
+                    </div>
+                    <div class="status-indicator"></div>
+                </div>
+                <div class="card-content">
+                    <div class="metric-row">
+                        <span class="metric-label">Market Threats</span>
+                        <span class="metric-value">2 Active <span class="metric-trend trend-up">↗️ +1</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Opportunities</span>
+                        <span class="metric-value">5 Identified <span class="metric-trend trend-up">↗️ +2</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Competitor Activity</span>
+                        <span class="metric-value">High <span class="metric-trend trend-up">↗️ Increasing</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Patent Opportunities</span>
+                        <span class="metric-value">1 Critical <span class="metric-trend">🔥 New</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Commander Section -->
+        <div class="ai-commander">
+            <div class="commander-avatar">🤖</div>
+            <div class="commander-message">
+                MISSION COMMANDER: "Mission 67% complete. 3 critical actions required for next phase advancement."
+            </div>
+            
+            <div class="threat-assessment">
+                <div class="threat-item">
+                    <div class="threat-level threat-high">HIGH THREAT</div>
+                    <div class="threat-description">Pricing misalignment with customer feedback</div>
+                </div>
+                <div class="threat-item">
+                    <div class="threat-level threat-medium">MEDIUM THREAT</div>
+                    <div class="threat-description">Competitor launched similar product</div>
+                </div>
+                <div class="threat-item">
+                    <div class="threat-level threat-high">HIGH OPPORTUNITY</div>
+                    <div class="threat-description">Patent opportunity in AI ordering system</div>
+                </div>
+                <div class="threat-item">
+                    <div class="threat-level threat-low">LOW RISK</div>
+                    <div class="threat-description">Team alignment at 89%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Priorities -->
+        <div class="mission-priorities">
+            <div class="priority-header">
+                <div class="priority-title">🎯 MISSION PRIORITIES</div>
+                <div class="priority-subtitle">Critical Actions Required for Mission Success</div>
+            </div>
+            <div class="priority-list">
+                <div class="priority-item">
+                    <div class="priority-level">ALPHA</div>
+                    <div class="priority-content">
+                        <div class="priority-task">🎯 PRIORITY ALPHA: Complete Customer Validation</div>
+                        <div class="priority-details">
+                            Status: 7/10 interviews complete | ETA: 5 days | Risk: Medium<br>
+                            <strong>Threat Assessment:</strong> Pricing model conflicts detected in 4/7 interviews
+                        </div>
+                        <div class="priority-actions">
+                            <button class="action-btn primary">Deploy Resources</button>
+                            <button class="action-btn">Adjust Timeline</button>
+                            <button class="action-btn">Request Backup</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-level beta">BETA</div>
+                    <div class="priority-content">
+                        <div class="priority-task">🎯 PRIORITY BETA: Revise Pricing Strategy</div>
+                        <div class="priority-details">
+                            Status: Conflict detected | ETA: 2 days | Risk: High<br>
+                            <strong>Intelligence:</strong> Customer willingness to pay 40% lower than current model
+                        </div>
+                        <div class="priority-actions">
+                            <button class="action-btn primary">Emergency Session</button>
+                            <button class="action-btn">Data Analysis</button>
+                            <button class="action-btn">Expert Consultation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-level gamma">GAMMA</div>
+                    <div class="priority-content">
+                        <div class="priority-task">🎯 PRIORITY GAMMA: Secure Technical Architecture</div>
+                        <div class="priority-details">
+                            Status: Blueprint phase | ETA: 3 days | Risk: Low<br>
+                            <strong>Objective:</strong> Validate scalability for 10K+ concurrent users
+                        </div>
+                        <div class="priority-actions">
+                            <button class="action-btn primary">Begin Assessment</button>
+                            <button class="action-btn">Find Technical Advisor</button>
+                            <button class="action-btn">Defer Mission</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Timeline -->
+        <div class="mission-timeline">
+            <div class="timeline-header">🕐 MISSION TIMELINE</div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-text">Vision Established</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-text">Market Analysis Complete</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot current"></div>
+                <div class="timeline-text current">Customer Discovery Phase</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot future"></div>
+                <div class="timeline-text">Product Development</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot future"></div>
+                <div class="timeline-text">Launch Preparation</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot future"></div>
+                <div class="timeline-text">Mission Success</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="stage-nav">
+        <button class="nav-btn" onclick="window.location.href='index.html'">💬 Start</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">🎨 Canvas</button>
+        <button class="nav-btn" onclick="window.location.href='customer-discovery.html'">👥 Customer</button>
+        <button class="nav-btn active">🎯 Command</button>
+    </div>
+
+    <script>
+        // Real-time updates simulation
+        setInterval(() => {
+            // Update random metrics
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                if (Math.random() < 0.1) { // 10% chance to update
+                    const text = metric.textContent;
+                    if (text.includes('%')) {
+                        const currentValue = parseInt(text);
+                        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+                        const newValue = Math.max(0, Math.min(100, currentValue + change));
+                        metric.innerHTML = `${newValue}% <span class="metric-trend ${change >= 0 ? 'trend-up' : 'trend-down'}">${change >= 0 ? '↗️' : '↘️'} ${Math.abs(change)}%</span>`;
+                    }
+                }
+            });
+        }, 5000);
+
+        // Pulse animation for critical alerts
+        setInterval(() => {
+            const alertLevel = document.querySelector('.alert-level');
+            alertLevel.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                alertLevel.style.transform = 'scale(1)';
+            }, 200);
+        }, 2000);
+    </script>
+</body>
+</html> 

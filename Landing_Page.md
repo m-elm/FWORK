@@ -14,6 +14,34 @@ Build 3 detailed personas for {product}. For each persona include:
 - Exact language they use (phrases, metaphors)
 - Where they hang out online
 - Top 7 objections with plain-language quotes
+
+
+Enhanced LLM Prompt for Step 1.1 (Deep Customer Understanding)
+Context: I’m building {your product or service description}. You are an AI market‑research analyst. Use proven persona‑building frameworks to create three detailed buyer personas for this product.
+For each persona, include:
+.Identity & Demographics: Assign a realistic name, age range, role and key demographic details (occupation, location, education, income etc.)
+.Psychographics & Behaviors: Describe their values, interests, lifestyle and personality traits, along with typical online/offline behaviors and the communities or social platforms where they spend time
+discovercrisp.com
+delve.ai
+.Needs & Goals: Outline their functional goals (what they need to accomplish) and emotional goals (why fulfilling these goals matters to them)
+discovercrisp.com
+, including long‑term ambitions
+.Job(s) to Be Done: Explain the underlying “job” they are hiring this product to do – i.e., the outcome they seek and the context in which they need it
+delve.ai
+.Challenges & Pain Points: List specific problems, sources of frustration and the impact on their life that your product must address
+discovercrisp.com
+persona.qcri.org
+.Buying Triggers: Identify psychological, cognitive and identity triggers (e.g., urgency, scarcity, social proof, fear of missing out) that would prompt them to act now
+m1-project.com
+.Loss Aversion & Status Quo: Describe what they fear losing by not solving the problem and why they haven’t solved it already (status‑quo bias).
+Must‑Have Features vs Nice‑to‑Haves: Differentiate between essential and optional features for this persona.
+Objections & Quotes: Give the top three objections that might stop them from buying, with example quotes in their own words.
+Language & Channels: Provide exact phrases, metaphors or social‑media posts they might use when discussing this problem, and list where they research solutions (blogs, communities, influencers, etc.)
+discovercrisp.com
+.Decision Process: Summarize their decision‑making process: how they gather information, evaluate options and what factors influence their final choice
+discovercrisp.com
+.Brief Narrative: Conclude with a short narrative that brings the persona to life and highlights their motivations, frustrations and aspirations.
+Deliverable: Provide three complete persona documents, each clearly separated, using clear and empathetic language.
 ```
 
 **What you're extracting:**
@@ -47,6 +75,43 @@ Then synthesize:
 - 10 testable hypotheses I can implement
 - 3 differentiation opportunities
 - Pricing strategies ranked by effectiveness
+
+
+
+Enhanced LLM Prompt for Step 1.2 (Competitor Intelligence)
+Context: I’m assessing up to five competitor landing pages for {product/industry}. You are a conversion‑rate optimization analyst. Use landing‑page research and behavioural psychology to reverse‑engineer each page.
+For each competitor URL, extract and evaluate:
+Core value proposition: Quote the exact headline/tagline that communicates the offer.
+CTA strategy: Identify the primary and secondary calls‑to‑action (CTAs), note their placement (e.g., above the fold, mid‑page, end), and describe the copy and design (button text, colour, contrast). Best practice is to have the main CTA visible above the fold and repeated for long pages
+unbounce.com
+.
+Pricing psychology: Describe how pricing is framed. Note any tiers, decoy effect, anchoring (showing a higher price before the real price) or discount displays
+serotonin.co.uk
+. Highlight scarcity or loss‑aversion tactics such as limited‑time offers or guarantees
+serotonin.co.uk
+serotonin.co.uk
+.
+Social proof: List testimonials, user counts, star ratings or logos used to build trust
+serotonin.co.uk
+. Assess whether the proof is specific (includes names, roles, metrics).
+Objections addressed: Identify customer objections or pain points mentioned and explain how the page counters them.
+Trust‑building elements: Point out trust signals such as money‑back guarantees, secure checkout badges, certifications or free trials
+webstacks.com
+.
+Visual hierarchy and flow: Describe how the design guides the visitor’s eye—headline prominence, CTA contrast, use of whitespace and logical progression
+serotonin.co.uk
+.
+Missing or weak elements: Note gaps such as lack of CTA above the fold, vague value proposition, weak social proof or absent trust signals.
+After reviewing all pages, synthesise your insights:
+Competitor analysis matrix: Create a table summarising strengths, weaknesses and notable tactics for each competitor across the above criteria.
+10 testable hypotheses: Propose actionable experiments for my landing page based on observed patterns (e.g., adding scarcity messages, repositioning CTAs, improving trust signals).
+3 differentiation opportunities: Suggest unique value propositions or messaging angles that competitors are not using.
+Rank pricing strategies: Compare the psychological effectiveness of each competitor’s pricing structure (decoy tiers, anchoring, savings framing) and rank them.
+Guidance: When making recommendations, reference relevant psychological principles such as social proof, scarcity/FOMO, anchoring, loss aversion, reciprocity and visual hierarchy
+serotonin.co.uk
+serotonin.co.uk
+serotonin.co.uk
+. Provide clear, actionable analysis and present hypotheses and differentiation ideas in complete sentences.
 ```
 
 **I will use `web_search` and `web_fetch` to:**
@@ -77,6 +142,51 @@ For the top 3, analyze:
 - How they reduce friction
 - Their unique psychological trigger
 - How I can adapt this to {my product/market}
+
+Enhanced LLM Prompt for Step 1.3 (Cross‑Industry Inspiration)
+Context: I’m looking for proven conversion tactics from outside my sector to inspire my landing page. You are a conversion expert with access to public web data.
+Select up to three of the highest‑converting landing pages in {industry}. Prioritize pages that rank highly for conversions or are widely recognized for excellence. Be specific about the URL/company.
+For each page, report on four areas:
+Dominant conversion principle: Identify the main tactic driving conversion (e.g., free trial & demo flow in SaaS
+serotonin.co.uk
+, scarcity & urgency banners in e‑commerce
+leadpages.com
+, trust/security messaging in fintech
+webstacks.com
+, ROI calculators & case studies in B2B
+muffingroup.com
+muffingroup.com
+, founder story & mission in creator economy
+newbeach.co
+). Explain how it’s implemented on the page (e.g., placement, copy tone, visuals).
+Friction‑reduction tactics: Describe how the page removes barriers—such as prominent CTAs above the fold and repeated down the page
+unbounce.com
+, simplified forms
+muffingroup.com
+, or free trials/guarantees
+serotonin.co.uk
+.
+Unique psychological trigger: Identify the cognitive bias or emotion employed—social proof (customer logos, testimonials)
+serotonin.co.uk
+; scarcity/FOMO through limited‑time offers
+serotonin.co.uk
+; loss‑aversion framing (emphasizing what users lose by not acting)
+serotonin.co.uk
+; anchoring/decoy pricing
+serotonin.co.uk
+; reciprocity via free resources
+serotonin.co.uk
+; founder story/personal narrative
+newbeach.co
+, etc. Quote or paraphrase any notable copy.
+Adaptation ideas for {my product/market}: Suggest one or two ways to translate the tactic to my product. For example, if a fintech page uses security badges and compliance certifications to build trust
+webstacks.com
+, recommend equivalent trust signals for my product. If a B2B page features an interactive ROI calculator
+muffingroup.com
+, propose a simple ROI or savings estimator relevant to my offering.
+Deliverable: Present a concise report summarizing the three pages, each with the four sections above. End with a bullet list of 3–5 cross‑industry tactics you believe could be most impactful for my product, explaining why each is promising.
+
+
 ```
 
 **Output:** 3-5 transferable tactics with implementation ideas
@@ -126,6 +236,58 @@ For this landing page structure {paste outline}, map where to apply:
 - Eye-tracking optimization (what goes where and why)
 
 For each principle, give exact implementation examples.
+
+
+Enhanced LLM Prompt for Step 1.4 (Research‑Backed Conversion Principles)
+Context: I’m designing a conversion‑focused landing page. Below is my page outline {paste outline}. You are a behavioural‑science‑informed conversion strategist.
+Your tasks:
+Map Cialdini’s six persuasion principles to specific sections.
+Reciprocity: Suggest where to offer free value (e.g., tools, guides, assessments) before asking for commitment
+people-shift.com
+.
+Scarcity: Identify moments to use limited spots, time‑bound offers or inventory counts to create urgency
+people-shift.com
+.
+Authority: Recommend placements for expert endorsements, credentials or media logos
+people-shift.com
+.
+Commitment/Consistency: Propose low‑friction micro‑conversions (quiz → email → purchase) to build momentum
+people-shift.com
+.
+Liking: Indicate where to use relatable stories, shared values or founder narrative to build affinity
+people-shift.com
+.
+Social proof: Describe how to integrate customer counts, testimonials and case study snippets
+people-shift.com
+.
+Apply BJ Fogg’s Behaviour Model (B = MAP). Behaviour occurs when motivation, ability and a prompt converge
+behaviormodel.org
+. For each section, specify:
+Trigger placement: Where should a call‑to‑action or prompt appear when motivation is highest and friction is lowest?
+Ability enhancements: How can we simplify the action (e.g., fewer form fields, one‑click options) to increase ability?
+Motivation boosters: What messaging amplifies pain or clarifies the desired outcome to raise motivation?
+Embed loss‑aversion framing. People perceive losses as roughly twice as impactful as equivalent gains
+behavioraleconomics.com
+. Suggest copy that emphasises what users risk losing by not acting (“Don’t miss out on …” or “Without this, you’ll keep {pain}”) and recommend risk‑reversal guarantees (refunds, no‑risk trials).
+Optimise for eye‑tracking patterns.
+Above the fold: Users spend ~80 % of their viewing time above the fold
+searchenginejournal.com
+; identify which content (value proposition, social proof, primary CTA) must appear here.
+Left‑side bias & F‑pattern: Users read horizontally near the top, then move down and scan along the left
+searchenginejournal.com
+; suggest structuring headlines, subheads and bullet lists so key information appears in the first few words
+searchenginejournal.com
+.
+Other patterns: Note if a Z‑pattern or “layer‑cake” pattern may apply for simpler pages, and adjust layout accordingly.
+For each section of the outline, produce:
+Primary principle(s) applied (e.g., Social proof + Authority in the hero).
+Specific copy or design element to implement the principle (e.g., “Join 2,000 founders who saved 10 hours/week” next to CTA).
+Rationale linking the element to the psychological research (e.g., above‑the‑fold placement captures most attention
+searchenginejournal.com
+).
+A/B test suggestion to experiment with variations (e.g., testing scarcity vs. social‑proof emphasis).
+Deliverable: A section‑by‑section “psychological trigger map” table summarising these details, followed by 3–5 high‑level recommendations on how to sequence persuasive elements across the page.
+
 ```
 
 **Output:** Psychological trigger map for your page
@@ -154,6 +316,38 @@ Test them against these criteria:
 - Does it pass the "blink test"? (understandable in 3 seconds)
 - Does it trigger FOMO or loss aversion?
 - Is it specific enough to filter in the right audience?
+
+Enhanced LLM Prompt for Step 1.5 (Value Proposition Development)
+Context: I’m refining the value proposition for {product}. You are a direct‑response copywriter with expertise in conversion psychology.
+Task: Generate 10 headline + subheadline pairs following the formulas below. Each pair should immediately communicate the primary benefit and motivate action.
+Formulas to use:
+Outcome without Obstacle: {Primary outcome} for {ICP} without {painful obstacle} in {time/cost bound}.
+Result Despite Objection: {Specific result} — even if {common objection}.
+Superlative Method: The {superlative} way to {desired outcome} — {proof point}.
+Guidelines (based on research):
+Pass the 3‑second “blink test”: Chartbeat data shows most visitors disengage within 3–5 seconds
+revolutexdigital.com
+, so make headlines instantly understandable.
+Lead with benefits and specificity: Use concrete numbers or time frames (e.g., “Save 10 hours/week”)—this improves clarity and relevance
+thrivethemes.com
+.
+Avoid jargon or clever wordplay: The brain prefers cognitively fluent messages
+revolutexdigital.com
+.
+Trigger FOMO or loss aversion: Use phrases that highlight what readers risk missing out on (e.g., “Don’t miss your chance…”). FOMO creates urgency
+revolutexdigital.com
+ and loss aversion makes people more motivated to avoid missing benefits.
+Evoke emotional resonance: Headlines that stir fear, awe, inspiration or curiosity are more clickable
+revolutexdigital.com
+.
+Include a supporting subheadline: Use this line to clarify the offer, address a common objection, introduce urgency or social proof (e.g., “Join 5,000 creators who doubled their sales”).
+For each pair, provide:
+Headline (≤ 12 words) focused on the outcome.
+Subheadline that expands on the promise, includes a number or social proof, and addresses a pain point or objection.
+Brief rationale (1 sentence) explaining which psychological lever you used (clarity, FOMO, curiosity, social proof, loss aversion) and why.
+Deliverable: A list of 10 headline + subheadline combinations with rationales.
+
+
 ```
 
 **Output:** 10 value prop candidates (you'll pick top 2 to test)
@@ -295,6 +489,72 @@ Section: Hero
 - Test variant: Authority instead ("Featured in TechCrunch")
 
 Do this for all 11 sections.
+```
+
+**Enhanced LLM**
+```
+Context: We’ve finalised our landing‑page architecture (11 sections listed below). You are a conversion strategist trained in behavioural psychology. Use Cialdini’s persuasion principles (reciprocity, scarcity, authority, consistency/commitment, liking, social proof), Fogg’s behaviour model (motivation, ability, triggers) and loss‑aversion research (people weigh losses about twice as much as gains
+behavioraleconomics.com
+) to assign optimal triggers to each section.
+Sections:
+Hero section – outcome‑driven headline, proof nugget, primary & secondary CTAs, hero visual
+Credibility bar – logos/numbers/authority quote
+Problem → Outcome – 3 sentences empathising with the pain and promising a desired outcome
+How it works – 3 steps, icons, “Start now” CTA
+Benefits over features – 3–5 benefit statements with proof and visuals
+Social proof – testimonials, metrics, case snippets
+Pricing & Offer – 3 tiers with decoy pricing, comparison row, toggles
+Risk reversal – guarantees, cancel‑anytime policy, transparency
+FAQ – addresses four top objections
+Final CTA – restated primary CTA with reassurance microcopy
+Checkout – minimal form fields, reassurance and progress indicator
+For each section, provide the following in a table (columns: Section, Primary Psychological Principle, Implementation, Rationale, A/B Test Variant):
+Primary principle: Choose from Cialdini’s six principles, Fogg’s model (motivation, ability, trigger) or loss‑aversion. For example, the hero often uses social proof
+serotonin.co.uk
+; pricing uses scarcity or anchoring
+serotonin.co.uk
+.
+Implementation: Draft a specific copy or design element that embodies this principle. For instance, in the hero you might use a statement like “Join 2 000 founders who saved 10 hours/week”
+serotonin.co.uk
+, or in the risk‑reversal section include “100% money‑back guarantee if we miss our ship date.”
+Rationale: Explain in one sentence why this trigger works in that position. Relate it to research (e.g., social proof reduces perceived risk
+serotonin.co.uk
+; scarcity/FOMO accelerates decisions
+serotonin.co.uk
+; above‑the‑fold elements capture ~80% of attention
+searchenginejournal.com
+).
+A/B test variant: Suggest a variation using a different principle (e.g., swap social proof for authority by citing press mentions; test loss‑aversion framing vs. benefit‑focused framing).
+Guidance:
+Hero section: Prioritise social proof or authority; show outcomes above the fold
+serotonin.co.uk
+serotonin.co.uk
+.
+Credibility bar: Use authority or social proof (logos, numbers) to build trust quickly
+serotonin.co.uk
+.
+Problem → Outcome: Frame the pain and risk of inaction to tap loss aversion
+serotonin.co.uk
+.
+How it works: Emphasise simplicity and ability by outlining a 3‑step process; Fogg’s model notes that reducing friction increases the likelihood of action
+serotonin.co.uk
+.
+Benefits: Highlight clear outcomes and proof points; emphasise liking and reciprocity with empathetic tone
+serotonin.co.uk
+.
+Social proof: Integrate specific testimonials with metrics
+serotonin.co.uk
+. A/B test authority or quantitative social proof.
+Pricing & Offer: Use scarcity/decoy pricing; anchor high and highlight the “best value” plan
+serotonin.co.uk
+.
+Risk Reversal: Tap reciprocity and commitment by offering risk‑free trials or money‑back guarantees
+serotonin.co.uk
+.
+FAQ: Use consistency and commitment; address objections raised in personas.
+Final CTA: Ensure the timing aligns with peak motivation; include Fogg’s trigger (clear action) and reassurance microcopy.
+Checkout: Reduce friction—minimal fields—and include trust badges (authority and social proof).
+Output: Provide a completed table for all 11 sections, followed by two overarching recommendations on sequencing (e.g., repeating CTAs after social proof) and any additional behavioural insights you think are critical for this audience.
 ```
 
 **Key Trigger Placements:**
